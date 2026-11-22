@@ -1,0 +1,126 @@
+:root {
+  --ink: #16202b;
+  --paper: #f3f5f4;
+  --card: #ffffff;
+  --line: #d5dbda;
+  --muted: #5d6b70;
+  --lost: #e8a317;
+  --found: #0f8b8d;
+  --danger: #b3382c;
+  --ok: #1f7a4d;
+  --radius: 10px;
+  --font: 'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font); font-size: 1rem; line-height: 1.5;
+}
+h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 0.5rem; line-height: 1.15; }
+h2 { font-size: 1.25rem; font-weight: 600; margin: 2rem 0 0.75rem; }
+h3 { font-size: 1.05rem; font-weight: 600; margin: 0.15rem 0; }
+a { color: var(--found); }
+:focus-visible { outline: 3px solid var(--lost); outline-offset: 2px; }
+.muted { color: var(--muted); }
+.small { font-size: 0.85rem; }
+.error { color: var(--danger); font-weight: 600; }
+.ok { color: var(--ok); font-weight: 600; }
+
+.nav {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+  padding: 0.75rem 1.25rem; background: var(--ink); color: #fff;
+}
+.nav .brand { color: #fff; font-weight: 800; font-size: 1.4rem; text-decoration: none; letter-spacing: -0.02em; }
+.nav nav { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.nav nav a { color: #cfd8dc; text-decoration: none; padding: 0.25rem 0; border-bottom: 2px solid transparent; }
+.nav nav a.active { color: #fff; border-bottom-color: var(--lost); }
+.link { background: none; border: 0; color: #cfd8dc; font: inherit; cursor: pointer; padding: 0; }
+.link:hover { color: #fff; }
+
+.page { max-width: 1040px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+.narrow { max-width: 460px; }
+
+.form { display: grid; gap: 1rem; margin: 1.25rem 0; }
+.form label, .filters label { display: grid; gap: 0.3rem; font-weight: 600; font-size: 0.92rem; }
+input, select, textarea {
+  font: inherit; padding: 0.6rem 0.7rem; border: 1px solid var(--line);
+  border-radius: 8px; background: #fff; color: var(--ink); width: 100%;
+}
+textarea { resize: vertical; }
+
+.btn {
+  font: inherit; font-weight: 600; cursor: pointer; border: 1px solid var(--ink);
+  background: var(--ink); color: #fff; padding: 0.6rem 1.1rem; border-radius: 8px;
+}
+.btn:hover:not(:disabled) { background: #26364a; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.ghost:hover:not(:disabled) { background: #e5eae9; }
+.btn.danger { color: var(--danger); border-color: var(--danger); }
+
+.filters { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1rem 0 1.5rem; align-items: end; }
+.filters input, .filters select { width: auto; min-width: 150px; }
+.filters .inline { display: flex; align-items: center; gap: 0.4rem; }
+.filters .inline input { min-width: 0; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1rem; }
+
+/* Luggage-tag cards: a coloured edge marks lost (amber) vs found (teal). */
+.tag {
+  position: relative; display: block; color: inherit; text-decoration: none;
+  background: var(--card); border: 1px solid var(--line); border-left: 8px solid var(--lost);
+  border-radius: var(--radius); overflow: hidden;
+}
+.tag.found { border-left-color: var(--found); }
+.tag::after {
+  content: ''; position: absolute; top: 10px; right: 10px; width: 12px; height: 12px;
+  border-radius: 50%; background: var(--paper); border: 1px solid var(--line);
+}
+.tag img { width: 100%; height: 140px; object-fit: cover; display: block; }
+.tag-body { padding: 0.8rem 1rem 1rem; }
+.tag-type { font-weight: 800; font-size: 0.85rem; color: #8a5f00; }
+.found .tag-type, .detail.found .tag-type { color: #0a6264; }
+.tag:hover { border-color: var(--ink); }
+
+.pager { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+
+.segmented { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.segmented label {
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem; text-align: center;
+  background: #fff; cursor: pointer; font-weight: 600;
+}
+.segmented label.on { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.segmented input { position: absolute; opacity: 0; pointer-events: none; }
+.segmented label:focus-within { outline: 3px solid var(--lost); outline-offset: 2px; }
+
+.detail { display: grid; grid-template-columns: minmax(0, 320px) 1fr; gap: 1.5rem; align-items: start;
+  background: var(--card); border: 1px solid var(--line); border-left: 8px solid var(--lost);
+  border-radius: var(--radius); padding: 1.25rem; }
+.detail.found { border-left-color: var(--found); }
+.detail:not(:has(img)) { grid-template-columns: 1fr; }
+.detail img { width: 100%; border-radius: 8px; object-fit: cover; }
+dl { display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 1rem; margin: 1rem 0; }
+dt { color: var(--muted); }
+dd { margin: 0; font-weight: 600; }
+
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.25rem; margin-top: 1.5rem; }
+.panel h2 { margin-top: 0.25rem; }
+.claim { border-top: 1px solid var(--line); padding: 0.75rem 0; }
+.claim:first-of-type { border-top: 0; }
+.row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.between { justify-content: space-between; align-items: center; }
+.pill { padding: 0.1rem 0.6rem; border-radius: 99px; font-size: 0.82rem; font-weight: 600; border: 1px solid var(--line); }
+.pill.approved { color: var(--ok); border-color: var(--ok); }
+.pill.rejected { color: var(--danger); border-color: var(--danger); }
+.pill.pending { color: #8a5f00; border-color: var(--lost); }
+
+.table-wrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+table { width: 100%; border-collapse: collapse; min-width: 640px; }
+th, td { text-align: left; padding: 0.65rem 0.85rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 640px) {
+  .detail { grid-template-columns: 1fr; }
+  h1 { font-size: 1.6rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
