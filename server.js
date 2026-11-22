@@ -21,7 +21,7 @@ app.use('/api/claims', claimRoutes);
 app.use('/api/admin', adminRoutes);
 
 if (process.env.NODE_ENV === 'production') {
-  const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), '../frontend/dist');
+  const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), './dist');
   app.use(express.static(dist));
   app.get(/^\/(?!api).*/, (_req, res) => res.sendFile(path.join(dist, 'index.html')));
 }
